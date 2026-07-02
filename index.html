@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator for beregning av Helge- og høytidsdager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #f4f9fd; /* Light blue background */
+            color: #333; /* Dark text color */
+        }
+        h2 {
+            color: #2c5aa7; /* Blue title color */
+        }
+        .input-group {
+            display: flex;
+            flex-direction: column; /* Stack items vertically */
+            align-items: center; /* Center items horizontally */
+            margin-top: 15px;
+        }
+        .input-group label {
+            font-size: 18px;
+            color: #4a4a4a; /* Grayish label color */
+            margin-bottom: 5px; /* Space between label and input */
+        }
+        input[type="time"], input[type="number"], button, textarea {
+            padding: 10px 15px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            width: 250px; /* Fixed width for better alignment */
+            margin-bottom: 15px; /* Space between inputs */
+        }
+        input[type="number"] {
+            text-align: right; /* Align number input to the right */
+        }
+        button {
+            background-color: #2c5aa7; /* Button background color */
+            color: white; /* White text on button */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 250px; /* Match width with inputs */
+        }
+        button:hover {
+            background-color: #254b87; /* Darker button hover color */
+        }
+        h3 {
+            margin-top: 20px;
+            font-size: 20px;
+            color: #2c5aa7; /* Blue result text */
+        }
+        #resultat, #totalLonn {
+            font-size: 22px;
+            font-weight: bold;
+            color: #3e8bb5; /* Highlighted result color */
+        }
+        #hourlyWage {
+            margin-bottom: 20px;
+        }
+        textarea {
+            height: 120px; /* Increased height for the text box */
+            resize: none; /* Prevent resizing of the text box */
+            width: 400px; /* Increased width for better readability */
+            margin: 20px auto 0; /* Center and add spacing */
+            display: block; /* Ensure it's centered */
+        }
+    </style>
+</head>
+<body>
+    <h2>Arbeidstid Kalkulator</h2>
+    
+    <!-- Input group for starttid and slutttid -->
+    <div class="input-group">
+        <label for="startTid">Starttid (HH:MM):</label>
+        <input type="time" id="startTid" required>
+        
+        <label for="sluttTid">Slutttid (HH:MM):</label>
+        <input type="time" id="sluttTid" required>
+    </div>
+    
+    <button onclick="beregnArbeidstid()">Beregn arbeidstid</button>
+    
+    <h3 id="resultat"></h3>
+    <h3 id="totalLonn"></h3>
+    
+    <!-- Hourly Wage Input -->
+    <label for="hourlyWage">Timelønn (kr):</label>
+    <input type="number" id="hourlyWage" value="672.32" step="0.01">
+
+    <!-- Information Text Box at the Bottom -->
+    <textarea readonly style="text-align: left;">
+Helligdagstillegg gis mellom 06-20 på helligdager. På påske- og jul-aften gis det etter 13. Man får 10min per time. Etter 20:00 får man vanlig kveldstillegg og evt helgetillegg, men time for time.
+</textarea>
+
+    <script>
+        function beregnArbeidstid() {
+            let startTid = document.getElementById("startTid").value;
+            let sluttTid = document.getElementById("sluttTid").value;
+
+            if (!startTid || !sluttTid) {
+                document.getElementById("resultat").innerText = "Vennligst fyll inn begge tidspunktene.";
+                document.getElementById("totalLonn").innerText = "";
+                return;
+            }
+
+            // Convert input times to Date objects
+            let start = new Date("1970-01-01T" + startTid + ":00");
+            let slutt = new Date("1970-01-01T" + sluttTid + ":00");
+
+            // Handle shifts that go past midnight
+            if (slutt < start) {
+                slutt.setDate(slutt.getDate() + 1);
+            }
+
+            // Calculate total work time in hours
+            let arbeidstid = (slutt - start) / (1000 * 60 * 60);
+
+            // Bonus period (06:00 - 20:00)
+            let bonusStart = new Date("1970-01-01T06:00:00");
+            let bonusEnd = new Date("1970-01-01T20:00:00");
+            let bonusTid = 0;
+
+            if (start < bonusEnd && slutt > bonusStart) {
+                let bonusStartTime = new Date(Math.max(start, bonusStart));
+                let bonusEndTime = new Date(Math.min(slutt, bonusEnd));
+                let bonusTimer = (bonusEndTime - bonusStartTime) / (1000 * 60 * 60);
+                bonusTid = bonusTimer * (10 / 60); // 10 extra minutes per hour
+            }
+
+            // Total work time including bonus
+            let totalArbeidstid = arbeidstid + bonusTid;
+
+            // Break down total time into hours and minutes
+            let timer = Math.floor(totalArbeidstid);
+            let minutter = Math.round((totalArbeidstid - timer) * 60);
+
+            // Display total work time
+            document.getElementById("resultat").innerText = `Total arbeidstid: ${timer} timer og ${minutter} minutter`;
+
+            // Get hourly wage from input field
+            const timeLonn = parseFloat(document.getElementById("hourlyWage").value);
+
+            // Validate hourly wage input
+            if (isNaN(timeLonn) || timeLonn <= 0) {
+                document.getElementById("totalLonn").innerText = "Vennligst oppgi en gyldig timeverk.";
+                return;
+            }
+
+            // Calculate total pay
+            let totalLonn = totalArbeidstid * timeLonn;
+
+            // Display total pay
+            document.getElementById("totalLonn").innerText = `Total lønn: ${totalLonn.toFixed(2)} kr`;
+        }
+    </script>
+</body>
+</html>
