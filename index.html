@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mitt Bildegalleri</title>
+    <title>Mitt Bildegalleri & Info</title>
     <style>
         body {
             text-align: center;
@@ -11,38 +11,96 @@
             padding: 40px 20px;
             background-color: #f5f5f7;
             margin: 0;
+            color: #333;
         }
 
         h1 {
-            color: #333;
             margin-bottom: 30px;
         }
 
-        /* Denne boksen bestemmer nå størrelsen på HELE galleriet */
+        /* Stil for informasjonsboksen på toppen */
+        .info-boks {
+            max-width: 700px;
+            margin: 0 auto 40px auto;
+            background-color: #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border-radius: 8px;
+            padding: 25px;
+            text-align: left; /* Gjør fagteksten lettere å lese */
+            line-height: 1.6;
+        }
+
+        .info-boks h2 {
+            margin-top: 0;
+            color: #111;
+            border-bottom: 2px solid #e5e5ea;
+            padding-bottom: 10px;
+        }
+
+        .info-boks h3 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        /* Lenke-knapper */
+        .lenke-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .dokument-lenke {
+            display: inline-block;
+            padding: 12px 15px;
+            background-color: #007aff;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+
+        .dokument-lenke:hover {
+            background-color: #0056b3;
+        }
+
+        /* Liste-oppsett for bremser og trykk */
+        ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* Galleri-oppsett (beholdt fra forrige versjon) */
         .galleri {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 30px; /* Avstand mellom bildene */
-            
-            /* På Mac/PC blir galleriet maks 700 piksler bredt */
-            max-width: 700px; 
-            margin: 0 auto; /* Sentrerer galleriet på skjermen */
+            gap: 30px;
+            max-width: 700px;
+            margin: 0 auto;
         }
 
-        /* Nå tvinger vi ALLE bildene til å fylle hele bredden av galleriet */
         img {
-            width: 100%;       /* Gjør at de små bildene tvinges til å strekke seg ut */
-            height: auto;      /* Beholder de originale proporsjonene (ingen cropping/strekking i høyden) */
+            width: 100%;
+            height: auto;
             display: block;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             border-radius: 6px;
         }
 
-        /* Tilpasning for iPhone / mobil */
         @media (max-width: 768px) {
             .galleri {
-                width: 95%; /* Bruker nesten hele skjermbredden på mobil */
+                width: 95%;
+            }
+            .info-boks {
+                width: 95%;
+                padding: 15px;
             }
         }
     </style>
@@ -51,11 +109,51 @@
 
     <h1>Mitt Bildegalleri</h1>
 
+    <div class="info-boks">
+        <h2>Dokumenter og feilretting Type 78</h2>
+        
+        <div class="lenke-container">
+            <a class="dokument-lenke" href="https://flytoget.sharepoint.com/sites/Flytogboka/Godkjente%20dokumenter%20Flytoget/Begrensninger%20i%20drift%20type%2078.pdf" target="_blank">
+                📄 Begrensninger i drift type 78
+            </a>
+            <a class="dokument-lenke" href="https://flytoget.sharepoint.com/sites/Flytogboka/Godkjente%20dokumenter%20Flytoget/Teknisk%20h%C3%A5ndbok%20type%2078%20for%20flytogf%C3%B8rer.pdf" target="_blank">
+                📄 Teknisk håndbok type 78
+            </a>
+        </div>
+
+        <ul>
+            <li><strong>B12:</strong> Ingen EP, men nødbrems.</li>
+            <li><strong>B13:</strong> C-trykk brems (ny bremseprosent 143%). (Stenger du begge B13 på endevogn).</li>
+            <li><strong>B15:</strong> Styreventil (kan kjøres som normalt, kun HL-brems man tar).</li>
+        </ul>
+
+        <p><em>Venstre foran og høyre bak for avstemning av bremser.</em></p>
+
+        <h3>Hovedkompressor:</h3>
+        <ul>
+            <li>Normalt trykk: 8,5–10 bar.</li>
+            <li>Nødbrems slår inn på 6,4 bar. Må heves til 6,8 bar for å løse ut.</li>
+            <li>Traksjonsperre ved 6,8 bar sperre, og går opp til 10 bar.</li>
+            <li>Under 7,5 bar går begge kompressorer.</li>
+            <li>Ved 4,5 bar i HL slår traksjonsperre inn, og må over 4,8 bar for å koble inn igjen.</li>
+        </ul>
+
+        <h3>Bremsetrykk og hastighet:</h3>
+        <ul>
+            <li>Lavavbremsing: 2,9 bar over 170 km/t.</li>
+            <li>Høyavbremsing: 3,8 bar under 170 km/t.</li>
+        </ul>
+
+        <h3>Merknad om førerrom:</h3>
+        <p><strong>S4</strong> er feilmerket i førerrom. Ta togradio-sikringen der i stedet for å utføre resett på togradio.</p>
+    </div>
+
     <div class="galleri">
-        <img src="S5.png" alt="Bilde 1">
-        <img src="s4mi2.png" alt="Bilde 2">
-        <img src="s4mi2del2.png" alt="Bilde 3">
-        <img src="S3mi2.png" alt="Bilde 4">
+        <img src="test1.pdf" alt="Bilde 1">
+        <img src="S5.png" alt="Bilde 2">
+        <img src="s4mi2.png" alt="Bilde 3">
+        <img src="s4mi2del2.png" alt="Bilde 4">
+        <img src="S3mi2.png" alt="Bilde 5">
     </div>
 
 </body>
