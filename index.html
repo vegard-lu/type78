@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Type 78 </title>
+    <title>Type 78</title>
     <style>
         body {
             text-align: center;
@@ -26,11 +26,13 @@
             overflow: hidden;
         }
 
-        /* Høyden tvinges til 1100px så hele PDF-en strekker seg ut naturlig */
-        .pdf-fullvisning embed {
+        /* Vi bruker iframe og fjerner standardrammen til nettleseren */
+        .pdf-fullvisning iframe {
             width: 100%;
-            height: 1100px; 
+            height: 1000px; /* Juster denne opp/ned hvis du får rullefelt inni */
+            border: none;
             display: block;
+            background-color: transparent;
         }
 
         /* Stil for informasjonsboksen */
@@ -119,8 +121,8 @@
             .info-boks {
                 padding: 15px;
             }
-            .pdf-fullvisning embed {
-                height: 800px; /* Tilpasset høyde for mobilskjermer */
+            .pdf-fullvisning iframe {
+                height: 750px; 
             }
         }
     </style>
@@ -130,7 +132,7 @@
     <h1>Type 78</h1>
 
     <div class="pdf-fullvisning">
-        <embed src="test1.pdf" type="application/pdf">
+        <iframe src="test1.pdf#toolbar=0&navpanes=0&view=FitH"></iframe>
     </div>
 
     <div class="info-boks">
