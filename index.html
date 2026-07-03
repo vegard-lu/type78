@@ -18,7 +18,25 @@
             margin-bottom: 20px;
         }
 
-        /* Stil for informasjonsboksen på toppen */
+        /* Stil for PDF-visningen under overskriften */
+        .pdf-fullvisning {
+            max-width: 700px;
+            width: 100%;
+            margin: 0 auto 40px auto;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #fff;
+        }
+
+        /* Vi setter høyden veldig høy (f.eks. 1100px) så hele PDF-en ruller ut naturlig */
+        .pdf-fullvisning embed {
+            width: 100%;
+            height: 1100px; 
+            display: block;
+        }
+
+        /* Stil for informasjonsboksen */
         .info-boks {
             max-width: 700px;
             margin: 0 auto 40px auto;
@@ -69,7 +87,7 @@
             background-color: #0056b3;
         }
 
-        /* Liste-oppsett for bremser og trykk */
+        /* Liste-oppsett */
         ul {
             margin: 0;
             padding-left: 20px;
@@ -98,11 +116,14 @@
         }
 
         @media (max-width: 768px) {
-            .galleri, .info-boks {
+            .galleri, .info-boks, .pdf-fullvisning {
                 width: 95%;
             }
             .info-boks {
                 padding: 15px;
+            }
+            .pdf-fullvisning embed {
+                height: 800px; /* Tilpasset høyde for mobilskjermer */
             }
         }
     </style>
@@ -110,6 +131,10 @@
 <body>
 
     <h1>Type 78</h1>
+
+    <div class="pdf-fullvisning">
+        <embed src="test1.pdf" type="application/pdf">
+    </div>
 
     <div class="info-boks">
         <h2>Operative dokumenter og feilretting</h2>
@@ -152,7 +177,7 @@
     </div>
 
     <div class="galleri">
-        <img src="test1.png" alt="Hoveddokument"> <img src="S5.png" alt="Bilde 1">
+        <img src="S5.png" alt="Bilde 1">
         <img src="s4mi2.png" alt="Bilde 2">
         <img src="s4mi2del2.png" alt="Bilde 3">
         <img src="S3mi2.png" alt="Bilde 4">
