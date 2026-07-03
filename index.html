@@ -18,42 +18,31 @@
             margin-bottom: 30px;
         }
 
+        /* Denne boksen bestemmer nå størrelsen på HELE galleriet */
         .galleri {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 40px; /* Avstand mellom ramme-boksene */
+            gap: 30px; /* Avstand mellom bildene */
+            
+            /* På Mac/PC blir galleriet maks 700 piksler bredt */
+            max-width: 700px; 
+            margin: 0 auto; /* Sentrerer galleriet på skjermen */
         }
 
-        /* 1. RAMMEN: Denne bestemmer maks-størrelsen på bildene */
-        .bilde-ramme {
-            width: 100%;
-            max-width: 600px;  /* Endre dette tallet for å gjøre "rammen" bredere/smalere */
-            height: 450px;     /* Endre dette tallet for å gjøre "rammen" høyere/lavere */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #ffffff; /* Hvit bakgrunn i rammen der bildet ikke dekker */
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-            border-radius: 8px;
-            padding: 10px; /* Litt luft mellom bildet og kanten av rammen */
-            box-sizing: border-box;
-        }
-
-        /* 2. BILDET: Vises 100% uten å bli beskjært eller strukket */
-        .bilde-ramme img {
-            max-width: 100%;
-            max-height: 100%;
-            width: auto;
-            height: auto;
-            object-fit: contain; /* Sørger for at HELE bildet vises, uansett form */
+        /* Nå tvinger vi ALLE bildene til å fylle hele bredden av galleriet */
+        img {
+            width: 100%;       /* Gjør at de små bildene tvinges til å strekke seg ut */
+            height: auto;      /* Beholder de originale proporsjonene (ingen cropping/strekking i høyden) */
             display: block;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 6px;
         }
 
-        /* Tilpasning for mindre mobilskjermer */
-        @media (max-width: 600px) {
-            .bilde-ramme {
-                height: 350px;
+        /* Tilpasning for iPhone / mobil */
+        @media (max-width: 768px) {
+            .galleri {
+                width: 95%; /* Bruker nesten hele skjermbredden på mobil */
             }
         }
     </style>
@@ -63,10 +52,10 @@
     <h1>Mitt Bildegalleri</h1>
 
     <div class="galleri">
-        <div class="bilde-ramme"><img src="image.png" alt="Bilde 1"></div>
-        <div class="bilde-ramme"><img src="image1.png" alt="Bilde 2"></div>
-        <div class="bilde-ramme"><img src="image2.png" alt="Bilde 3"></div>
-        <div class="bilde-ramme"><img src="image3.png" alt="Bilde 4"></div>
+        <img src="image.png" alt="Bilde 1">
+        <img src="image1.png" alt="Bilde 2">
+        <img src="image2.png" alt="Bilde 3">
+        <img src="image3.png" alt="Bilde 4">
     </div>
 
 </body>
