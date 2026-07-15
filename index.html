@@ -5,26 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Banestrekning</title>
     <style>
-        /* Vi setter body og html til å ta høyde, men lar innholdet flyte */
         html, body {
             margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
-            /* Dette hindrer at siden "spretter" på iPhone */
-            overflow-y: auto;
+            overflow: auto;
+            -webkit-overflow-scrolling: touch; /* Tvinger frem silkemyk scrolling på iOS */
+            background-color: #f5f5f7;
+        }
+
+        /* Denne containeren tvinger iOS til å rulle innholdet */
+        .pdf-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow-y: scroll;
             -webkit-overflow-scrolling: touch;
         }
 
-        /* Containeren må ha en definert høyde for at iframe skal forstå hvor den skal slutte */
-        .pdf-container {
-            width: 100%;
-            height: 100vh; /* 100% av viewport høyde */
-        }
-
-        iframe {
+        .pdf-viewer {
             width: 100%;
             height: 100%;
+            min-height: 100%;
             border: none;
             display: block;
         }
@@ -32,9 +37,16 @@
 </head>
 <body>
 
-    <div class="pdf-container">
-        <iframe src="test12.pdf" width="100%" height="100%"></iframe>
+    <div class="pdf-wrapper">
+        <!-- <object> fungerer ofte langt bedre enn <iframe> på iOS -->
+        <object class="pdf-viewer" data="test12.pdf" type="application/pdf">
+            <!-- Fallback hvis alt annet feiler -->
+            <iframe class="pdf-viewer" src="test12.pdf"></iframe>
+        </object>
     </div>
+
+</body>
+</html>    </div>
 
 </body>
 </html>
